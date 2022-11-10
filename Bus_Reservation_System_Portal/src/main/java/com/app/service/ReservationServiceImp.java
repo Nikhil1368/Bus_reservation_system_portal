@@ -20,18 +20,19 @@ public class ReservationServiceImp implements ReservationService {
 
 	@Override
 	public Reservation addReservation(Reservation reservation)  {
+		return reservation;
 		
-		Bus bus= bRepo.findByrouteFrom(routeFrom);
+//		Bus bus= bRepo.findByrouteFrom(routeFrom);
 
 		
 
-		if(bus != null) {
-			bus.getRouteFrom().add(reservation);
-
-		}
-		else {
-			throw new BusException("Bus Not found "+routeFrom);
-		}
+//		if(bus != null) {
+//			bus.getRouteFrom().add(reservation);
+//
+//		}
+//		else {
+//			throw new BusException("Bus Not found "+routeFrom);
+//		}
 	}
 
 }
