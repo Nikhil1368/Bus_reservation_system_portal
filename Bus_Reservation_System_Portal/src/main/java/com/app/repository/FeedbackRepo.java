@@ -6,4 +6,5 @@ import com.app.model.Feedback;
 
 public interface FeedbackRepo extends JpaRepository<Feedback, Integer> {
 
+
 }
