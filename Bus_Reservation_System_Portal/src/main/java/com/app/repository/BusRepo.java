@@ -1,5 +1,10 @@
 package com.app.repository;
 
-public interface BusRepo {
+import org.hibernate.metamodel.model.convert.spi.JpaAttributeConverter;
 
+import com.app.model.Bus;
+
+public interface BusRepo{
+
+	
 }

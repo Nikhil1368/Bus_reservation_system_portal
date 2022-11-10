@@ -21,6 +21,9 @@ public class Bus {
 	private LocalTime departureTime;
 	private Integer seats;
 	private Integer availableSeats;
+
+	
+	
 	
 
 }
