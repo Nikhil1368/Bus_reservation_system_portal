@@ -30,13 +30,19 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User updateUser(User user, String key) throws UserException {
 		
-		currentUserSession uslogin = sr.findByUuid(key);
+		currentUserSession loggedInUser = sr.findByUuid(key);
 		
-		if(uslogin==null)
-			throw new UserException("User Does Not Exist...");
+		if(loggedInUser==null)
+			throw new UserException("User not Logged In...");
 		
-		return null;
-		
+		if(user.getUserLoginId() == loggedInUser.getUserId())
+		{
+			return ur.save(user);
+		}
+		else
+		{
+		  throw new UserException("Please Fill right credentials...");
+		}
 	}
 
 	@Override
