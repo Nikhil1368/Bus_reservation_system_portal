@@ -1,7 +1,13 @@
 package com.app.exceptions;
 
-public class RouteException {
+public class RouteException extends Exception {
 	
-	//abc
+	public RouteException() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public RouteException(String message) {
+		super(message);
+	}
 
 }
