@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.app.exceptions.UserException;
 import com.app.model.User;
-import com.app.model.currentUserSession;
+import com.app.model.CurrentUserSession;
 import com.app.repository.SessionRepo;
 import com.app.repository.UserRepo;
 
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User updateUser(User user, String key) throws UserException {
 		
-		currentUserSession loggedInUser = sr.findByUuid(key);
+		CurrentUserSession loggedInUser = sr.findByUuid(key);
 		
 		if(loggedInUser==null)
 			throw new UserException("User not Logged In...");
