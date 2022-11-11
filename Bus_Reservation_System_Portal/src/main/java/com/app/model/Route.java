@@ -6,6 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 ;
 
 
@@ -16,10 +20,23 @@ public class Route {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer routeId;
+	
+	@NotNull(message = "This Field can not be null..")
+	@NotBlank(message = "This Field can not be blank..")
+	@NotEmpty(message = "This Field can not be empty..")
 	private String  routeFrom;
+	
+	@NotNull(message = "This Field can not be null..")
+	@NotBlank(message = "This Field can not be blank..")
+	@NotEmpty(message = "This Field can not be empty..")
 	private String routeTo;
+	
 	private Integer distance;
+	
+	@OneToMany
 	private List<Bus> bus;
+	
+	
 	public Integer getRouteId() {
 		return routeId;
 	}

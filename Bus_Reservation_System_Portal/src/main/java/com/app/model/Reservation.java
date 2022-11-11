@@ -21,16 +21,16 @@ public class Reservation {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer reservationId;
 	
-	@NotNull(message = "This Field can not be null..")
-	@NotBlank(message = "This Field can not be blank..")
-	@NotEmpty(message = "This Field can not be empty..")
+	
 	private String reservationStatus;
 	
 	@NotNull(message = "This Field can not be null..")
 	@NotBlank(message = "This Field can not be blank..")
 	@NotEmpty(message = "This Field can not be empty..")
 	private String reservationType;
+	
 	private LocalDate reservationDate;
+	
 	private LocalTime reservationTime;
 	
 	@NotNull(message = "This Field can not be null..")
