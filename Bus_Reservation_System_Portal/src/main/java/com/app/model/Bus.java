@@ -6,6 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 
 
@@ -17,15 +22,41 @@ public class Bus {
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO )	
 	private Integer busId;
+	
+	@NotNull(message = "Bus Name can not be null..")
+	@NotBlank(message = "Bus Name can not be blank..")
+	@NotEmpty(message = "Bus Name can not be empty..")
 	private String busName;
+	
+	@NotNull(message = "Driver Name can not be null..")
+	@NotBlank(message = "Driver Name can not be blank..")
+	@NotEmpty(message = "Driver Name can not be empty..")
 	private String driverName;
+	
+	@NotNull(message = "Bus Type can not be null..")
+	@NotBlank(message = "Bus Type can not be blank..")
+	@NotEmpty(message = "Bus Type can not be empty..")
 	private String busType;
+	
+	@NotNull(message = "This Field can not be null..")
+	@NotBlank(message = "This Field can not be blank..")
+	@NotEmpty(message = "This Field can not be empty..")
 	private String routeFrom;
+	
+	@NotNull(message = "This Field can not be null..")
+	@NotBlank(message = "This Field can not be blank..")
+	@NotEmpty(message = "This Field can not be empty..")
 	private String routeTo;
+    
 	private LocalTime arrivalTime;
 	private LocalTime departureTime;
+	
+	@Min(value = 1)
+	@Max(value = 60)
 	private Integer seats;
+	
 	private Integer availableSeats;
+	
 	public Integer getBusId() {
 		return busId;
 	}
