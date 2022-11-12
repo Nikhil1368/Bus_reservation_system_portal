@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.exceptions.BusExseption;
+
 import com.app.exceptions.RouteException;
+
 import com.app.model.Bus;
 import com.app.model.Route;
 import com.app.repository.BusRepo;
@@ -20,9 +22,15 @@ public class BusServiceImpl implements BusService {
 	@Override
 	public Bus addBus(Bus bus)throws BusExseption {
 		// TODO Auto-generated method stub
+
+		Bus saveBus =bRepo.save(bus);
+		if(saveBus!=null) {
+			return saveBus;	
+
 		Bus bus2 = bRepo.save(bus);
 		if(bus2!=null) {
 			return bus2;	
+
 		}else {
 			throw new BusExseption("Bus not added due to technical error");
 		}

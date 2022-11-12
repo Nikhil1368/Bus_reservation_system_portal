@@ -10,7 +10,7 @@ import com.app.exceptions.RouteException;
 import com.app.model.Route;
 import com.app.repository.RouteRepo;
 
- 
+ @Service
 public class RouteServiceImpl implements RouteService{
 
 	
@@ -40,7 +40,6 @@ public class RouteServiceImpl implements RouteService{
 	        if (optional.isPresent()) {
 	        	route2.setDistance(route.getDistance());
 	        	route2.setRouteFrom(route.getRouteFrom());
-	        	route2.setRouteId(route.getRouteId());
 	        	route2.setRouteTo(route.getRouteTo());	
 	          return routeRepo.save(route2);
 	        } else {
