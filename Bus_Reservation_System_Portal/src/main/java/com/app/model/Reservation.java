@@ -54,9 +54,7 @@ public class Reservation {
 
 	@ManyToOne
 	@JoinColumn(name = "bus_id",referencedColumnName = "busId")
-
 	@OneToOne
-
 	private Bus bus;
 	public Integer getReservationId() {
 		return reservationId;

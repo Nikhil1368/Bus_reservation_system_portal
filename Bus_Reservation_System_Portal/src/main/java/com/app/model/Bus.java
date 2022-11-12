@@ -17,8 +17,6 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Bus {
 	
-
-	
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO )	
 	private Integer busId;
