@@ -1,14 +1,14 @@
 package com.app.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import com.app.model.Bus;
-import com.app.model.Reservation;
-import antlr.collections.List;
+import java.time.LocalDate;
+import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.app.model.Reservation;
 
 public interface ReservationRepo extends JpaRepository<Reservation, Integer> {
 	
-	
-	
+	public List<Reservation> findByReservationDate(LocalDate date);
+
 }
