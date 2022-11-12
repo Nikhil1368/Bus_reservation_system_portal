@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.app.exceptions.BusExseption;
+import com.app.exceptions.BusException;
 
 import com.app.exceptions.RouteException;
 
@@ -20,24 +20,20 @@ public class BusServiceImpl implements BusService {
 	private BusRepo bRepo;
 	
 	@Override
-	public Bus addBus(Bus bus)throws BusExseption {
+	public Bus addBus(Bus bus)throws BusException {
 		// TODO Auto-generated method stub
-
-		Bus saveBus =bRepo.save(bus);
-		if(saveBus!=null) {
-			return saveBus;	
 
 		Bus bus2 = bRepo.save(bus);
 		if(bus2!=null) {
 			return bus2;	
 
 		}else {
-			throw new BusExseption("Bus not added due to technical error");
+			throw new BusException("Bus not added due to technical error");
 		}
 	}
 
 	@Override
-	public Bus updateBus(Bus bus)throws BusExseption {
+	public Bus updateBus(Bus bus)throws BusException {
          
 		Bus Bus2 = new Bus();
 		
@@ -54,13 +50,13 @@ public class BusServiceImpl implements BusService {
 	        	Bus2.setAvailableSeats(bus.getAvailableSeats());
 	          return bRepo.save(Bus2);
 	        } else {
-	            throw new BusExseption(" Route not found");
+	            throw new BusException(" Route not found");
 	        }
 	        	
 	}
 
 	@Override
-	public Bus deleteBus(int busId)throws BusExseption {
+	public Bus deleteBus(int busId)throws BusException {
 		// TODO Auto-generated method stub
 		
 		Bus Bus2 = new Bus();
@@ -78,19 +74,19 @@ public class BusServiceImpl implements BusService {
 	        	this.bRepo.deleteById(busId);
 	        	return Bus2;
 	        } else {
-	            throw new BusExseption(" Bus not found for id :: " + busId);
+	            throw new BusException(" Bus not found for id :: " + busId);
 	        }
 	        
 	}
 
 	@Override
-	public Bus viewBus(int busId)throws BusExseption {
+	public Bus viewBus(int busId)throws BusException {
 		Optional < Bus > optional = bRepo.findById(busId);
 		Bus bus = null;
 	        if (optional.isPresent()) {
 	        return bus = optional.get();
 	        } else {
-	            throw new BusExseption(" Bus not found for id :: " + busId);
+	            throw new BusException(" Bus not found for id :: " + busId);
 	        }
 	}
 

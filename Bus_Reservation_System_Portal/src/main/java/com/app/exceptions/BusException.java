@@ -1,12 +1,12 @@
 package com.app.exceptions;
 
-public class BusExseption extends Exception {
+public class BusException extends Exception {
 
-	 public BusExseption() {
+	 public BusException() {
 			// TODO Auto-generated constructor stub
 		}
 	     
-	     public BusExseption(String message) {
+	     public BusException(String message) {
 	 		// TODO Auto-generated constructor stub
 	    	 super(message);
 	 	}

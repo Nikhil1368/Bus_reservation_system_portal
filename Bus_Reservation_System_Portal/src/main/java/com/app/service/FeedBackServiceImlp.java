@@ -24,7 +24,7 @@ public class FeedBackServiceImlp implements FeedBackService{
 		if(feedback2!=null) {
 			return feedback2;	
 		}else {
-			throw new feedbackException("feedback is done...");
+			throw new feedbackException("feedback is not done...");
 		}
 			
 	}
