@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.exceptions.LoginException;
 import com.app.exceptions.RouteException;
 import com.app.model.Route;
 import com.app.service.RouteService;
@@ -32,10 +33,10 @@ public class RouteController {
         return new ResponseEntity<List <Route>>(rService.viewAllRoute(),HttpStatus.OK);
     }
 	
-	@PostMapping("/save")
-    public ResponseEntity<Route> createRoute(@RequestBody Route route)throws RouteException {
+	@PostMapping("/save/{key}")
+    public ResponseEntity<Route> createRoute(@RequestBody Route route,@PathVariable("key") String key)throws RouteException, LoginException {
 		
-		Route rou = rService.addRoute(route);
+		Route rou = rService.addRoute(route,key);
 		
         return new ResponseEntity<Route>(rou,HttpStatus.OK);
     } 
@@ -49,16 +50,16 @@ public class RouteController {
     }
 		
 	
-	@PutMapping("/update")
-    public ResponseEntity<Route> updateRouteById(@RequestBody Route route)throws RouteException {
+	@PutMapping("/update/{key}")
+    public ResponseEntity<Route> updateRouteById(@RequestBody Route route,@PathVariable("key") String key)throws RouteException, LoginException {
 		
-		return new ResponseEntity<Route>(rService.updateRoute(route),HttpStatus.OK);
+		return new ResponseEntity<Route>(rService.updateRoute(route,key),HttpStatus.OK);
     }
 	
-	@DeleteMapping("/delet/{routeId}")
-    public ResponseEntity<Route> deleteRouteById(@PathVariable int routeId)throws RouteException {
+	@DeleteMapping("/delet/{routeId}/{key}")
+    public ResponseEntity<Route> deleteRouteById(@PathVariable int routeId,@PathVariable("key") String key)throws RouteException, LoginException {
 		
-		return new ResponseEntity<Route>(rService.deleteRoute(routeId),HttpStatus.OK);
+		return new ResponseEntity<Route>(rService.deleteRoute(routeId,key),HttpStatus.OK);
     }
 
 	

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.exceptions.BusException;
+import com.app.exceptions.LoginException;
 import com.app.model.Bus;
 import com.app.service.BusService;
 
@@ -22,10 +23,10 @@ public class BusController {
 	@Autowired
 	private BusService  bService;
 		
-	@PostMapping("/save")
-    public ResponseEntity<Bus> createBus(@RequestBody Bus bus)throws BusException {
+	@PostMapping("/save/{key}")
+    public ResponseEntity<Bus> createBus(@RequestBody Bus bus,@PathVariable("key") String key)throws BusException, LoginException {
 		
-        return new ResponseEntity<Bus>(bService.addBus(bus),HttpStatus.OK);
+        return new ResponseEntity<Bus>(bService.addBus(bus,key),HttpStatus.OK);
     } 
 	
 	@GetMapping("/find/{busId}")
@@ -35,16 +36,16 @@ public class BusController {
     }
 		
 	
-	@PutMapping("/update")
-    public ResponseEntity<Bus> updateBusById(@RequestBody Bus bus)throws BusException {
+	@PutMapping("/update/{key}")
+    public ResponseEntity<Bus> updateBusById(@RequestBody Bus bus,@PathVariable("key") String key)throws BusException, LoginException {
 		
-		return new ResponseEntity<Bus>(bService.updateBus(bus),HttpStatus.OK);
+		return new ResponseEntity<Bus>(bService.updateBus(bus,key),HttpStatus.OK);
     }
 	
-	@DeleteMapping("/delet/{busId}")
-    public ResponseEntity<Bus> deleteRouteById(@PathVariable int busId)throws BusException {
+	@DeleteMapping("/delet/{busId}/{key}")
+    public ResponseEntity<Bus> deleteRouteById(@PathVariable int busId,@PathVariable("key") String key)throws BusException, LoginException {
 		
-		return new ResponseEntity<Bus>(bService.deleteBus(busId),HttpStatus.OK);
+		return new ResponseEntity<Bus>(bService.deleteBus(busId,key),HttpStatus.OK);
     }
 
 }

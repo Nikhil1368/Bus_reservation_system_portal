@@ -5,10 +5,14 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.app.exceptions.LoginException;
 import com.app.exceptions.feedbackException;
+import com.app.model.CurrentUserSession;
 import com.app.model.Feedback;
 import com.app.repository.BusRepo;
 import com.app.repository.FeedbackRepo;
+import com.app.repository.SessionRepo;
 import com.app.repository.UserRepo;
 
 @Service
@@ -17,8 +21,18 @@ public class FeedBackServiceImlp implements FeedBackService{
 	@Autowired
 	private FeedbackRepo fRepo;
 	
+	@Autowired
+	private SessionRepo sr;
+	
 	@Override
-	public Feedback addFeedBack(Feedback feedback) throws feedbackException {
+	public Feedback addFeedBack(Feedback feedback,String key) throws feedbackException,LoginException {
+		
+        CurrentUserSession cus = sr.findByUuid(key);
+		
+		if(cus == null)
+		{
+			throw new LoginException("User not Logged In with this key..");
+		}
 		
 		Feedback feedback2 = fRepo.save(feedback);
 		if(feedback2!=null) {
@@ -30,7 +44,14 @@ public class FeedBackServiceImlp implements FeedBackService{
 	}
 
 	@Override
-	public Feedback updateFeedBack(Feedback feedback) throws feedbackException {
+	public Feedback updateFeedBack(Feedback feedback,String key) throws feedbackException,LoginException  {
+		
+        CurrentUserSession cus = sr.findByUuid(key);
+		
+		if(cus == null)
+		{
+			throw new LoginException("User not Logged In with this key..");
+		}
 		
 		Feedback Feedback2 = new Feedback();
 		Optional < Feedback > optional = fRepo.findById(feedback.getFeedbackId());

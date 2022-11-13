@@ -6,11 +6,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.exceptions.LoginException;
 import com.app.exceptions.ReservationException;
 import com.app.model.Bus;
+import com.app.model.CurrentUserSession;
 import com.app.model.Reservation;
 import com.app.repository.BusRepo;
 import com.app.repository.ReservationRepo;
+import com.app.repository.SessionRepo;
 
 import antlr.collections.List;
 
@@ -21,12 +24,22 @@ public class ResevationServiceImp implements ReservationService {
 	private ReservationRepo rRepo;
 	@Autowired
 	private BusRepo bRepo;
+	@Autowired
+	private SessionRepo sr;
 	
 	
 	
 	
 	@Override
-	public Reservation addReservation(Reservation reservation) throws ReservationException {
+	public Reservation addReservation(Reservation reservation,String key) throws ReservationException,LoginException {
+		
+        CurrentUserSession cus = sr.findByUuid(key);
+		
+		if(cus == null)
+		{
+			throw new LoginException("User not Logged In with this key..");
+		}
+		
 		
     Reservation reservation2=rRepo.save(reservation);
 		
@@ -43,7 +56,13 @@ public class ResevationServiceImp implements ReservationService {
 
 
 	@Override
-	public Reservation updateReservation(Reservation reservation) throws ReservationException {
+	public Reservation updateReservation(Reservation reservation,String key) throws ReservationException,LoginException {
+        CurrentUserSession cus = sr.findByUuid(key);
+		
+		if(cus == null)
+		{
+			throw new LoginException("User not Logged In with this key..");
+		}
 		Optional<Reservation> opt=rRepo.findById(reservation.getReservationId());
 		
 		if(opt.isPresent()) {
@@ -57,9 +76,14 @@ public class ResevationServiceImp implements ReservationService {
 	}
 
 	@Override
-	public Reservation deleteReservation(Integer reservationId) throws ReservationException {
+	public Reservation deleteReservation(Integer reservationId,String key) throws ReservationException,LoginException {
 		// TODO Auto-generated method stub
+         CurrentUserSession cus = sr.findByUuid(key);
 		
+		if(cus == null)
+		{
+			throw new LoginException("User not Logged In with this key..");
+		}
           Optional<Reservation> opt=rRepo.findById(reservationId);
 		
 		if(opt.isPresent()) {
@@ -74,7 +98,15 @@ public class ResevationServiceImp implements ReservationService {
 	}
 
 	@Override
-	public Reservation viewAllReservation(Integer reservationId) {
+	public Reservation viewAllReservation(Integer reservationId,String key)throws LoginException {
+		
+		 CurrentUserSession validAdminSession = sr.findByUuid(key);
+			
+			
+			if(validAdminSession == null) {
+				throw new LoginException("Admin Not Logged In with this Key");
+				
+			}
 		
 		Optional<Reservation>opt=rRepo.findById(reservationId);
 		
@@ -85,8 +117,15 @@ public class ResevationServiceImp implements ReservationService {
 	}
 
 	@Override
-	public java.util.List<Reservation> getReservationDeatials() throws ReservationException {
+	public java.util.List<Reservation> getReservationDeatials(String key) throws ReservationException,LoginException {
 		// TODO Auto-generated method stub
+		 CurrentUserSession validAdminSession = sr.findByUuid(key);
+			
+			
+			if(validAdminSession == null) {
+				throw new LoginException("Admin Not Logged In with this Key");
+				
+			}
 		java.util.List<Reservation>reservations=rRepo.findAll();
 		
 		if(reservations.size() == 0) {

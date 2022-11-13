@@ -6,9 +6,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.exceptions.LoginException;
 import com.app.exceptions.RouteException;
+import com.app.model.CurrentUserSession;
 import com.app.model.Route;
 import com.app.repository.RouteRepo;
+import com.app.repository.SessionRepo;
 
  @Service
 public class RouteServiceImpl implements RouteService{
@@ -17,9 +20,19 @@ public class RouteServiceImpl implements RouteService{
 	@Autowired
     private RouteRepo routeRepo;
 	
+	@Autowired
+	private SessionRepo sr;
+	
 	
 	@Override
-	public Route addRoute(Route route)throws RouteException {
+	public Route addRoute(Route route,String key)throws RouteException,LoginException {
+		CurrentUserSession validAdminSession = sr.findByUuid(key);
+		
+		
+		if(validAdminSession == null) {
+			throw new LoginException("Admin Not Logged In with this Key");
+			
+		}
 		
 		Route routes = routeRepo.save(route);
 		if(routes!=null) {
@@ -32,7 +45,14 @@ public class RouteServiceImpl implements RouteService{
 
 	
 	@Override
-	public Route updateRoute(Route route)throws RouteException {
+	public Route updateRoute(Route route,String key)throws RouteException,LoginException {
+		CurrentUserSession validAdminSession = sr.findByUuid(key);
+		
+		
+		if(validAdminSession == null) {
+			throw new LoginException("Admin Not Logged In with this Key");
+			
+		}
 				
 		Route route2 = new Route();
 		
@@ -49,7 +69,14 @@ public class RouteServiceImpl implements RouteService{
 	}
 
 	@Override
-	public Route deleteRoute(int routeId)throws RouteException {
+	public Route deleteRoute(int routeId,String key)throws RouteException,LoginException {
+		CurrentUserSession validAdminSession = sr.findByUuid(key);
+		
+		
+		if(validAdminSession == null) {
+			throw new LoginException("Admin Not Logged In with this Key");
+			
+		}
 		
 		Route route2 = new Route();
 		 Optional < Route > optional = routeRepo.findById(routeId);

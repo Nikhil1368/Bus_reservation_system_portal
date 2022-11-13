@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.exceptions.LoginException;
 import com.app.exceptions.feedbackException;
 import com.app.model.Feedback;
 import com.app.service.FeedBackService;
@@ -29,10 +30,10 @@ public class FeedbackController {
         return new ResponseEntity<List <Feedback>>(fService.viewAllFeedBack(),HttpStatus.OK);
     }
 	
-	@PostMapping("/save")
-    public ResponseEntity<Feedback> createFeedback(@RequestBody Feedback feedback)throws feedbackException {
+	@PostMapping("/save/{key}")
+    public ResponseEntity<Feedback> createFeedback(@RequestBody Feedback feedback,@PathVariable("key") String key)throws feedbackException, LoginException {
 		
-		Feedback Feedback2 = fService.addFeedBack(feedback);
+		Feedback Feedback2 = fService.addFeedBack(feedback,key);
 		
         return new ResponseEntity<Feedback>(Feedback2,HttpStatus.OK);
     } 
@@ -46,10 +47,10 @@ public class FeedbackController {
     }
 		
 	
-	@PutMapping("/update")
-    public ResponseEntity<Feedback> updateRouteById(@RequestBody Feedback feedback)throws feedbackException {
+	@PutMapping("/update{key}")
+    public ResponseEntity<Feedback> updateRouteById(@RequestBody Feedback feedback,@PathVariable("key") String key)throws feedbackException, LoginException {
 		
-		return new ResponseEntity<Feedback>(fService.updateFeedBack(feedback),HttpStatus.OK);
+		return new ResponseEntity<Feedback>(fService.updateFeedBack(feedback,key),HttpStatus.OK);
     }
 	
 

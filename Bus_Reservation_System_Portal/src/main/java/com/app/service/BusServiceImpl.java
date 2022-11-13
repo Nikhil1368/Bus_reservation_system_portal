@@ -2,16 +2,20 @@ package com.app.service;
 
 import java.util.Optional;
 
+import javax.websocket.Session;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.exceptions.BusException;
-
+import com.app.exceptions.LoginException;
 import com.app.exceptions.RouteException;
 
 import com.app.model.Bus;
+import com.app.model.CurrentUserSession;
 import com.app.model.Route;
 import com.app.repository.BusRepo;
+import com.app.repository.SessionRepo;
 
 @Service
 public class BusServiceImpl implements BusService {
@@ -19,9 +23,19 @@ public class BusServiceImpl implements BusService {
 	@Autowired
 	private BusRepo bRepo;
 	
+	@Autowired
+	private SessionRepo sr;
+	
 	@Override
-	public Bus addBus(Bus bus)throws BusException {
+	public Bus addBus(Bus bus,String key)throws BusException,LoginException {
 		// TODO Auto-generated method stub
+		 CurrentUserSession validAdminSession = sr.findByUuid(key);
+			
+			
+			if(validAdminSession == null) {
+				throw new LoginException("Admin Not Logged In with this Key");
+				
+			}
 
 		Bus bus2 = bRepo.save(bus);
 		if(bus2!=null) {
@@ -33,7 +47,15 @@ public class BusServiceImpl implements BusService {
 	}
 
 	@Override
-	public Bus updateBus(Bus bus)throws BusException {
+	public Bus updateBus(Bus bus,String key)throws BusException,LoginException{
+		
+		CurrentUserSession validAdminSession = sr.findByUuid(key);
+		
+		
+		if(validAdminSession == null) {
+			throw new LoginException("Admin Not Logged In with this Key");
+			
+		}
          
 		Bus Bus2 = new Bus();
 		
@@ -56,8 +78,16 @@ public class BusServiceImpl implements BusService {
 	}
 
 	@Override
-	public Bus deleteBus(int busId)throws BusException {
+	public Bus deleteBus(int busId,String key)throws BusException,LoginException{
 		// TODO Auto-generated method stub
+		
+		CurrentUserSession validAdminSession = sr.findByUuid(key);
+		
+		
+		if(validAdminSession == null) {
+			throw new LoginException("Admin Not Logged In with this Key");
+			
+		}
 		
 		Bus Bus2 = new Bus();
 		 Optional < Bus > optional = bRepo.findById(busId);
