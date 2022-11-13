@@ -1,5 +1,6 @@
 package com.app.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.websocket.Session;
@@ -15,11 +16,17 @@ import com.app.model.Bus;
 import com.app.model.CurrentUserSession;
 import com.app.model.Route;
 import com.app.repository.BusRepo;
+import com.app.repository.RouteRepo;
 import com.app.repository.SessionRepo;
 
 @Service
 public class BusServiceImpl implements BusService {
 
+	private static final String BusType = null;
+
+	@Autowired
+	private RouteRepo rRepo;
+	
 	@Autowired
 	private BusRepo bRepo;
 	
@@ -36,12 +43,15 @@ public class BusServiceImpl implements BusService {
 				throw new LoginException("Admin Not Logged In with this Key");
 				
 			}
-
-		Bus bus2 = bRepo.save(bus);
-		if(bus2!=null) {
-			return bus2;	
-
-		}else {
+			
+        Route route =rRepo.findByRouteFromAndRouteTo(bus.getRouteFrom(),bus.getRouteTo());
+        
+        		if(route != null) {
+        			route.getBus().add(bus);
+        			bus.setRoute(route);
+        			return bRepo.save(bus);
+        		}
+	else {
 			throw new BusException("Bus not added due to technical error");
 		}
 	}
@@ -57,21 +67,20 @@ public class BusServiceImpl implements BusService {
 			
 		}
          
+		Optional<Bus> updateBusOpt =bRepo.findById(bus.getBusId());
 		Bus Bus2 = new Bus();
+	      
+		if(updateBusOpt.isPresent()) {
+			Bus existingBus = updateBusOpt.get();
+			if(existingBus.getAvailableSeats()!=existingBus.getSeats()) throw new BusException("Cannot update already scheduled bus!");
 		
-		Optional < Bus > optional = bRepo.findById(bus.getBusId());
-	        if (optional.isPresent()) {
-	        	Bus2.setBusName(bus.getBusName());
-	        	Bus2.setBusType(bus.getBusType());
-	        	Bus2.setDriverName(bus.getDriverName());
-	        	Bus2.setRouteFrom(bus.getRouteFrom());
-	        	Bus2.setRouteTo(bus.getRouteTo());
-	        	Bus2.setBusId(bus.getBusId());
-	        	Bus2.setDepartureTime(bus.getDepartureTime());
-	        	Bus2.setArrivalTime(bus.getArrivalTime());
-	        	Bus2.setAvailableSeats(bus.getAvailableSeats());
-	          return bRepo.save(Bus2);
-	        } else {
+			Route route=rRepo.findByRouteFromAndRouteTo(bus.getRouteFrom(), bus.getRouteTo());
+			if(route == null) throw new BusException("Invalid route!");
+			bus.setRoute(route);
+			return bRepo.save(bus);
+		}
+		
+	         else {
 	            throw new BusException(" Route not found");
 	        }
 	        	
@@ -81,7 +90,7 @@ public class BusServiceImpl implements BusService {
 	public Bus deleteBus(int busId,String key)throws BusException,LoginException{
 		// TODO Auto-generated method stub
 		
-		CurrentUserSession validAdminSession = sr.findByUuid(key);
+CurrentUserSession validAdminSession = sr.findByUuid(key);
 		
 		
 		if(validAdminSession == null) {
@@ -109,6 +118,7 @@ public class BusServiceImpl implements BusService {
 	        
 	}
 
+
 	@Override
 	public Bus viewBus(int busId)throws BusException {
 		Optional < Bus > optional = bRepo.findById(busId);
@@ -120,9 +130,36 @@ public class BusServiceImpl implements BusService {
 	        }
 	}
 
+	@Override
+	public List<Bus> viewBusByType(String BusType) throws BusException {
+		// TODO Auto-generated method stub
+		 List<Bus> listOfBusType = bRepo.findByBusType(BusType);
+			
+			if(listOfBusType.size() >0)
+				return listOfBusType;
+			else
+				throw new BusException("There is no bus of type "+ BusType);
+	}
 
-	
-
-	
-
+	@Override
+	public List<Bus> viewAllBuses() throws BusException {
+		// TODO Auto-generated method stub
+		List<Bus> listOfBusType = bRepo.findAll();
+		
+		if(listOfBusType.size() >0)
+			return listOfBusType;
+		else
+			throw new BusException("There is no bus of type ");
 }
+
+	}
+
+
+	
+
+
+	
+
+	
+
+
