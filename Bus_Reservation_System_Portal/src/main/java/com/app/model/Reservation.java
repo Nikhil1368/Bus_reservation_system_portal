@@ -38,6 +38,8 @@ public class Reservation {
 	
 	private LocalDate reservationDate;
 	
+	private LocalDate journeyDate;
+	
 	private LocalTime reservationTime;
 	
 	@NotNull(message = "This Field can not be null..")
@@ -50,6 +52,10 @@ public class Reservation {
 	@NotEmpty(message = "This Field can not be empty..")
 	private String destination;
 	
+	private Integer noOfSeatsBooked;
+	
+	private Integer fare;
+	
 	
 
 	@ManyToOne
@@ -59,23 +65,7 @@ public class Reservation {
 	private User user;
 	
 	
-	public Reservation(Integer reservationId, String reservationStatus,
-			@NotNull(message = "This Field can not be null..") @NotBlank(message = "This Field can not be blank..") @NotEmpty(message = "This Field can not be empty..") String reservationType,
-			LocalDate reservationDate, LocalTime reservationTime,
-			@NotNull(message = "This Field can not be null..") @NotBlank(message = "This Field can not be blank..") @NotEmpty(message = "This Field can not be empty..") String source,
-			@NotNull(message = "This Field can not be null..") @NotBlank(message = "This Field can not be blank..") @NotEmpty(message = "This Field can not be empty..") String destination,
-			Bus bus, User user) {
-		super();
-		this.reservationId = reservationId;
-		this.reservationStatus = reservationStatus;
-		this.reservationType = reservationType;
-		this.reservationDate = reservationDate;
-		this.reservationTime = reservationTime;
-		this.source = source;
-		this.destination = destination;
-		this.bus = bus;
-		this.user = user;
-	}
+	
 
 
 	public Integer getReservationId() {
@@ -83,9 +73,15 @@ public class Reservation {
 	}
 
 
+
+
+
 	public void setReservationId(Integer reservationId) {
 		this.reservationId = reservationId;
 	}
+
+
+
 
 
 	public String getReservationStatus() {
@@ -93,9 +89,15 @@ public class Reservation {
 	}
 
 
+
+
+
 	public void setReservationStatus(String reservationStatus) {
 		this.reservationStatus = reservationStatus;
 	}
+
+
+
 
 
 	public String getReservationType() {
@@ -103,9 +105,15 @@ public class Reservation {
 	}
 
 
+
+
+
 	public void setReservationType(String reservationType) {
 		this.reservationType = reservationType;
 	}
+
+
+
 
 
 	public LocalDate getReservationDate() {
@@ -113,9 +121,31 @@ public class Reservation {
 	}
 
 
+
+
+
 	public void setReservationDate(LocalDate reservationDate) {
 		this.reservationDate = reservationDate;
 	}
+
+
+
+
+
+	public LocalDate getJourneyDate() {
+		return journeyDate;
+	}
+
+
+
+
+
+	public void setJourneyDate(LocalDate journeyDate) {
+		this.journeyDate = journeyDate;
+	}
+
+
+
 
 
 	public LocalTime getReservationTime() {
@@ -123,9 +153,15 @@ public class Reservation {
 	}
 
 
+
+
+
 	public void setReservationTime(LocalTime reservationTime) {
 		this.reservationTime = reservationTime;
 	}
+
+
+
 
 
 	public String getSource() {
@@ -133,9 +169,15 @@ public class Reservation {
 	}
 
 
+
+
+
 	public void setSource(String source) {
 		this.source = source;
 	}
+
+
+
 
 
 	public String getDestination() {
@@ -143,9 +185,47 @@ public class Reservation {
 	}
 
 
+
+
+
 	public void setDestination(String destination) {
 		this.destination = destination;
 	}
+
+
+
+
+
+	public Integer getNoOfSeatsBooked() {
+		return noOfSeatsBooked;
+	}
+
+
+
+
+
+	public void setNoOfSeatsBooked(Integer noOfSeatsBooked) {
+		this.noOfSeatsBooked = noOfSeatsBooked;
+	}
+
+
+
+
+
+	public Integer getFare() {
+		return fare;
+	}
+
+
+
+
+
+	public void setFare(Integer fare) {
+		this.fare = fare;
+	}
+
+
+
 
 
 	public Bus getBus() {
@@ -153,9 +233,15 @@ public class Reservation {
 	}
 
 
+
+
+
 	public void setBus(Bus bus) {
 		this.bus = bus;
 	}
+
+
+
 
 
 	public User getUser() {
@@ -163,9 +249,40 @@ public class Reservation {
 	}
 
 
+
+
+
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+
+
+
+
+	public Reservation(Integer reservationId, String reservationStatus,
+			@NotNull(message = "This Field can not be null..") @NotBlank(message = "This Field can not be blank..") @NotEmpty(message = "This Field can not be empty..") String reservationType,
+			LocalDate reservationDate, LocalDate journeyDate, LocalTime reservationTime,
+			@NotNull(message = "This Field can not be null..") @NotBlank(message = "This Field can not be blank..") @NotEmpty(message = "This Field can not be empty..") String source,
+			@NotNull(message = "This Field can not be null..") @NotBlank(message = "This Field can not be blank..") @NotEmpty(message = "This Field can not be empty..") String destination,
+			Integer noOfSeatsBooked, Integer fare, Bus bus, User user) {
+		super();
+		this.reservationId = reservationId;
+		this.reservationStatus = reservationStatus;
+		this.reservationType = reservationType;
+		this.reservationDate = reservationDate;
+		this.journeyDate = journeyDate;
+		this.reservationTime = reservationTime;
+		this.source = source;
+		this.destination = destination;
+		this.noOfSeatsBooked = noOfSeatsBooked;
+		this.fare = fare;
+		this.bus = bus;
+		this.user = user;
+	}
+
+
+
 
 
 	public Reservation() {

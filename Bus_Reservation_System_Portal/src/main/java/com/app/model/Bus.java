@@ -51,6 +51,8 @@ public class Bus {
 	
 	private LocalTime departureTime;
 	
+	private Integer farePerSeat;
+	
 
 	@Min(value = 1)
 	@Max(value = 60)
@@ -63,14 +65,16 @@ public class Bus {
 	private Route route;
 
 	
+	
+	
 	public Bus(Integer busId,
 			@NotNull(message = "Bus Name can not be null..") @NotBlank(message = "Bus Name can not be blank..") @NotEmpty(message = "Bus Name can not be empty..") String busName,
 			@NotNull(message = "Driver Name can not be null..") @NotBlank(message = "Driver Name can not be blank..") @NotEmpty(message = "Driver Name can not be empty..") String driverName,
 			@NotNull(message = "Bus Type can not be null..") @NotBlank(message = "Bus Type can not be blank..") @NotEmpty(message = "Bus Type can not be empty..") String busType,
 			@NotNull(message = "This Field can not be null..") @NotBlank(message = "This Field can not be blank..") @NotEmpty(message = "This Field can not be empty..") String routeFrom,
 			@NotNull(message = "This Field can not be null..") @NotBlank(message = "This Field can not be blank..") @NotEmpty(message = "This Field can not be empty..") String routeTo,
-			LocalTime arrivalTime, LocalTime departureTime, @Min(1) @Max(60) Integer seats, Integer availableSeats,
-			Route route) {
+			LocalTime arrivalTime, LocalTime departureTime, Integer farePerSeat, @Min(1) @Max(60) Integer seats,
+			Integer availableSeats, Route route) {
 		super();
 		this.busId = busId;
 		this.busName = busName;
@@ -80,10 +84,12 @@ public class Bus {
 		this.routeTo = routeTo;
 		this.arrivalTime = arrivalTime;
 		this.departureTime = departureTime;
+		this.farePerSeat = farePerSeat;
 		this.seats = seats;
 		this.availableSeats = availableSeats;
 		this.route = route;
 	}
+
 
 
 	public Integer getBusId() {
@@ -91,9 +97,11 @@ public class Bus {
 	}
 
 
+
 	public void setBusId(Integer busId) {
 		this.busId = busId;
 	}
+
 
 
 	public String getBusName() {
@@ -101,9 +109,11 @@ public class Bus {
 	}
 
 
+
 	public void setBusName(String busName) {
 		this.busName = busName;
 	}
+
 
 
 	public String getDriverName() {
@@ -111,9 +121,11 @@ public class Bus {
 	}
 
 
+
 	public void setDriverName(String driverName) {
 		this.driverName = driverName;
 	}
+
 
 
 	public String getBusType() {
@@ -121,9 +133,11 @@ public class Bus {
 	}
 
 
+
 	public void setBusType(String busType) {
 		this.busType = busType;
 	}
+
 
 
 	public String getRouteFrom() {
@@ -131,9 +145,11 @@ public class Bus {
 	}
 
 
+
 	public void setRouteFrom(String routeFrom) {
 		this.routeFrom = routeFrom;
 	}
+
 
 
 	public String getRouteTo() {
@@ -141,9 +157,11 @@ public class Bus {
 	}
 
 
+
 	public void setRouteTo(String routeTo) {
 		this.routeTo = routeTo;
 	}
+
 
 
 	public LocalTime getArrivalTime() {
@@ -151,9 +169,11 @@ public class Bus {
 	}
 
 
+
 	public void setArrivalTime(LocalTime arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
+
 
 
 	public LocalTime getDepartureTime() {
@@ -161,9 +181,23 @@ public class Bus {
 	}
 
 
+
 	public void setDepartureTime(LocalTime departureTime) {
 		this.departureTime = departureTime;
 	}
+
+
+
+	public Integer getFarePerSeat() {
+		return farePerSeat;
+	}
+
+
+
+	public void setFarePerSeat(Integer farePerSeat) {
+		this.farePerSeat = farePerSeat;
+	}
+
 
 
 	public Integer getSeats() {
@@ -171,9 +205,11 @@ public class Bus {
 	}
 
 
+
 	public void setSeats(Integer seats) {
 		this.seats = seats;
 	}
+
 
 
 	public Integer getAvailableSeats() {
@@ -181,9 +217,11 @@ public class Bus {
 	}
 
 
+
 	public void setAvailableSeats(Integer availableSeats) {
 		this.availableSeats = availableSeats;
 	}
+
 
 
 	public Route getRoute() {
@@ -191,9 +229,11 @@ public class Bus {
 	}
 
 
+
 	public void setRoute(Route route) {
 		this.route = route;
 	}
+
 
 
 	public Bus() {

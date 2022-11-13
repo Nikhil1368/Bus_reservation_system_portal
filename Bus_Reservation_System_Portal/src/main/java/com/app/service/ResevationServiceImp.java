@@ -72,8 +72,10 @@ public class ResevationServiceImp implements ReservationService {
 			
 			reservation.setReservationStatus("Successfull");	
 			reservation.setDestination(opt.get().getRouteTo());
-//			ADD THE THE SEAT IN MODULE CLASS
-			
+			reservation.setNoOfSeatsBooked(reservationDTO.getNoOfSeatsToBook());
+            reservation.setFare((opt.get().getFarePerSeat())*(reservationDTO.getNoOfSeatsToBook()));
+			reservation.setJourneyDate(reservationDTO.getJourneyDate());
+            
 			java.util.List<Reservation> userReservation =user.getRervation();
 			userReservation.add(reservation);
 			
@@ -138,19 +140,18 @@ public class ResevationServiceImp implements ReservationService {
         		 
         		 if(found.getReservationDate().isBefore(LocalDate.now()))throw new ReservationException("Con't Cancel journey!...");
         	 
-//        		 bus.setAvailableSeats(bus.getAvailableSeats()+found.getNoSeatsBooked());
-//        		 Bus updateBus=bRepo.save(bus);
-//        		 
-//        		 reList.remove(i);
-//        		 rRepo.delete(found);
-//        		 return found;
-//        	
+        		 bus.setAvailableSeats(bus.getAvailableSeats()+found.getNoOfSeatsBooked());
+        		 Bus updateBus=bRepo.save(bus);
+        		 
+        		 reList.remove(i);
+        		 rRepo.delete(found);
+        		 return found;
+        	
         	 }
          }
 		
 		if(!vb)throw new LoginException("Reservation Id :"+reservationId +"Incorrect Id");
-		return null;
-	
+	    return null;
 	}
 
 	@Override

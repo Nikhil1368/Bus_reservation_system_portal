@@ -30,10 +30,10 @@ public class FeedbackController {
         return new ResponseEntity<List <Feedback>>(fService.viewAllFeedBack(),HttpStatus.OK);
     }
 	
-	@PostMapping("/save/{key}")
-    public ResponseEntity<Feedback> createFeedback(@RequestBody Feedback feedback,@PathVariable("key") String key)throws feedbackException, LoginException {
+	@PostMapping("/save/{busid}/{key}")
+    public ResponseEntity<Feedback> createFeedback(@RequestBody Feedback feedback,@PathVariable("busid") Integer busid,@PathVariable("key") String key)throws feedbackException, LoginException {
 		
-		Feedback Feedback2 = fService.addFeedBack(feedback,key);
+		Feedback Feedback2 = fService.addFeedBack(feedback,busid,key);
 		
         return new ResponseEntity<Feedback>(Feedback2,HttpStatus.OK);
     } 
