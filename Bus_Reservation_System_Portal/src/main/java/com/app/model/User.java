@@ -1,14 +1,22 @@
 package com.app.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -42,8 +50,31 @@ public class User {
 	@NotEmpty(message = "email can not be empty..")
 	private String email;
 	
-	@OneToOne
-	private Reservation reservation;
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+	private List<Reservation> rervation = new ArrayList<>();
+	
+
+	
+	public User(Integer userLoginId,
+			@NotNull(message = "username can not be null..") @NotBlank(message = "username can not be blank..") @NotEmpty(message = "username can not be empty..") String userName,
+			@Size(min = 6, max = 12, message = "password should be between 6 to 12 characters") String password,
+			@NotNull(message = "firstName can not be null..") @NotBlank(message = "firstName can not be blank..") @NotEmpty(message = "firstName can not be empty..") String firstName,
+			String lastName, Long contact,
+			@NotNull(message = "email can not be null..") @NotBlank(message = "email can not be blank..") @NotEmpty(message = "email can not be empty..") String email,
+			List<Reservation> rervation) {
+		super();
+		this.userLoginId = userLoginId;
+		this.userName = userName;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.contact = contact;
+		this.email = email;
+		this.rervation = rervation;
+	}
+
+
 
 
 	public Integer getUserLoginId() {
@@ -51,9 +82,19 @@ public class User {
 	}
 
 
+
+
+	public void setUserLoginId(Integer userLoginId) {
+		this.userLoginId = userLoginId;
+	}
+
+
+
+
 	public String getUserName() {
 		return userName;
 	}
+
 
 
 
@@ -63,9 +104,12 @@ public class User {
 
 
 
+
 	public String getPassword() {
 		return password;
 	}
+
+
 
 
 	public void setPassword(String password) {
@@ -73,22 +117,34 @@ public class User {
 	}
 
 
+
+
 	public String getFirstName() {
 		return firstName;
 	}
+
+
+
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
 
+
+
 	public String getLastName() {
 		return lastName;
 	}
 
+
+
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
+
 
 
 	public Long getContact() {
@@ -97,46 +153,42 @@ public class User {
 
 
 
+
 	public void setContact(Long contact) {
 		this.contact = contact;
 	}
+
+
 
 
 	public String getEmail() {
 		return email;
 	}
 
+
+
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public Reservation getReservation() {
-		return reservation;
+
+
+
+	public List<Reservation> getRervation() {
+		return rervation;
 	}
 
 
-	public void setReservation(Reservation reservation) {
-		this.reservation = reservation;
+
+
+	public void setRervation(List<Reservation> rervation) {
+		this.rervation = rervation;
 	}
 
-	public void setUserLoginId(Integer userLoginId) {
-		this.userLoginId = userLoginId;
-	}
 
-	public User(Integer userLoginId, String userName, String password, String firstName, String lastName, Long contact,
-			@NotNull(message = "email can not be null..") @NotBlank(message = "email can not be blank..") @NotEmpty(message = "email can not be empty..") String email,
-			Reservation reservation) {
-		super();
-		this.userLoginId = userLoginId;
-		this.userName = userName;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.contact = contact;
-		this.email = email;
-		this.reservation = reservation;
-	}
-	
+
+
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
