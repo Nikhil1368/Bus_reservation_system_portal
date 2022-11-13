@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.ReservationDTO;
 import com.app.exceptions.LoginException;
 import com.app.exceptions.ReservationException;
 import com.app.model.Reservation;
@@ -29,9 +30,9 @@ public class ReservationController {
 
 	
 	@PostMapping("/Reservation/{key}")
-	public ResponseEntity<Reservation> addReservation(@RequestBody Reservation reservation,@PathVariable("key") String key)throws ReservationException, LoginException{
+	public ResponseEntity<Reservation> addReservation(@RequestBody ReservationDTO reservationDTO,@PathVariable("key") String key)throws ReservationException, LoginException{
 		
-		Reservation reservation2 = Rservice.addReservation(reservation,key);
+		Reservation reservation2 = Rservice.addReservation(reservationDTO,key);
 		
 		return new ResponseEntity<Reservation>(reservation2,HttpStatus.CREATED);
 	}
