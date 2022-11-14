@@ -78,17 +78,16 @@ public class RouteServiceImpl implements RouteService{
 			
 		}
 		
-		Route route2 = new Route();
 		 Optional < Route > optional = routeRepo.findById(routeId);
 	        if (optional.isPresent()) {
-	        	route2.setDistance(optional.get().getDistance());
-	        	route2.setRouteFrom(optional.get().getRouteFrom());
-	        	route2.setRouteTo(optional.get().getRouteTo());
-	            route2.setRouteId(optional.get().getRouteId());
-	        	this.routeRepo.deleteById(routeId);
-	        	return route2;
+	        	
+	        	Route r = optional.get();
+	        	
+	        	routeRepo.delete(r);
+	        	
+	        	return r;
 	        } else {
-	            throw new RuntimeException(" Route not found for id :: " + routeId);
+	            throw new RouteException(" Route not found for id :: " + routeId);
 	        }
 	        
 		   

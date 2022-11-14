@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.dto.ReservationDTO;
 import com.app.exceptions.LoginException;
 import com.app.exceptions.ReservationException;
-import com.app.model.Reservation;
+import com.app.model.Reservations;
 import com.app.service.ReservationService;
 
 
@@ -30,48 +30,42 @@ public class ReservationController {
 
 	
 	@PostMapping("/Reservation/{key}")
-	public ResponseEntity<Reservation> addReservation(@RequestBody ReservationDTO reservationDTO,@PathVariable("key") String key)throws ReservationException, LoginException{
+	public ResponseEntity<Reservations> addReservation(@RequestBody ReservationDTO reservationDTO,@PathVariable String key)throws ReservationException, LoginException{
 		
-		Reservation reservation2 = Rservice.addReservation(reservationDTO,key);
+		Reservations reservation2 = Rservice.addReservation(reservationDTO,key);
 		
-		return new ResponseEntity<Reservation>(reservation2,HttpStatus.CREATED);
+		return new ResponseEntity<Reservations>(reservation2,HttpStatus.CREATED);
 	}
 	
 	
 	@PutMapping("/Reservation/{key}")
-	public ResponseEntity<Reservation>updateReservation(@RequestBody Reservation reservation,@PathVariable("key") String key) throws ReservationException, LoginException{
+	public ResponseEntity<Reservations>updateReservation(@RequestBody Reservations reservation,@PathVariable("key") String key) throws ReservationException, LoginException{
 		
-		Reservation upadateReservation = Rservice.updateReservation(reservation,key);
+		Reservations upadateReservation = Rservice.updateReservation(reservation,key);
 		
-		return new ResponseEntity<Reservation>(upadateReservation,HttpStatus.ACCEPTED);
+		return new ResponseEntity<Reservations>(upadateReservation,HttpStatus.ACCEPTED);
 		
 		
 	}
 	
 	@DeleteMapping("/Reservation/{reservationId}/{key}")
-	public ResponseEntity<Reservation> deleteReservation(@PathVariable("reservationId") Integer reservationId,@PathVariable("key") String key) throws ReservationException, LoginException{
+	public ResponseEntity<Reservations> deleteReservation(@PathVariable("reservationId") Integer reservationId,@PathVariable("key") String key) throws ReservationException, LoginException{
 		
-		Reservation deleteReservation = Rservice.deleteReservation(reservationId,key);
+		Reservations deleteReservation = Rservice.deleteReservation(reservationId,key);
 		
-		return new ResponseEntity<Reservation>(deleteReservation,HttpStatus.OK);
+		return new ResponseEntity<Reservations>(deleteReservation,HttpStatus.OK);
 		
 	}
 
 	@GetMapping("/Reservation/{reservationId}/{key}")
-	public ResponseEntity<Reservation> viewAllReservation(@PathVariable("reservationId") Integer reservationId,@PathVariable("key") String key) throws ReservationException, LoginException{
+	public ResponseEntity<Reservations> viewAllReservation(@PathVariable("reservationId") Integer reservationId,@PathVariable("key") String key) throws ReservationException, LoginException{
 		
-		Reservation viewReservation = Rservice.viewAllReservation(reservationId,key);
+		Reservations viewReservation = Rservice.viewAllReservation(reservationId,key);
 		
-		return new ResponseEntity<Reservation>(viewReservation,HttpStatus.OK);
+		return new ResponseEntity<Reservations>(viewReservation,HttpStatus.OK);
 	}
 	
 	
-	@GetMapping("/ReservationbyDate/{reservationDate}")
-	public ResponseEntity<List<Reservation>> getAllReservation(@PathVariable("reservationDate") LocalDate ld) throws ReservationException{
-		
-		List<Reservation> getAllReservation = Rservice.getAllReservation(ld);
-		
-		return new ResponseEntity<List<Reservation>> (getAllReservation,HttpStatus.OK);
-	}
+	
 	
 }

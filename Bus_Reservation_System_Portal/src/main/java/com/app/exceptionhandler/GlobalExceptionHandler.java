@@ -99,16 +99,16 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<ErrorDetails>(ed,HttpStatus.BAD_REQUEST);
 	}
 	
-	@ExceptionHandler(Exception.class)
-	public ResponseEntity<ErrorDetails> ExceptionHandler(Exception se,WebRequest req)
-	{
-		ErrorDetails ed = new ErrorDetails();
-		ed.setTimestamp(LocalDateTime.now());
-		ed.setMessage(se.getMessage());
-		ed.setDetails(req.getDescription(false));
-		
-		return new ResponseEntity<ErrorDetails>(ed,HttpStatus.BAD_REQUEST);
-	}
+//	@ExceptionHandler(Exception.class)
+//	public ResponseEntity<ErrorDetails> ExceptionHandler(Exception se,WebRequest req)
+//	{
+//		ErrorDetails ed = new ErrorDetails();
+//		ed.setTimestamp(LocalDateTime.now());
+//		ed.setMessage(se.getMessage());
+//		ed.setDetails(req.getDescription(false));
+//		
+//		return new ResponseEntity<ErrorDetails>(ed,HttpStatus.BAD_REQUEST);
+//	}
 	
 	@ExceptionHandler(NoHandlerFoundException.class)
 	public ResponseEntity<ErrorDetails> noHandlerFoundExceptionHandler(NoHandlerFoundException nhfe,WebRequest req)

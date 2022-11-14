@@ -3,26 +3,18 @@ package com.app.model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-
-import org.hibernate.annotations.ManyToAny;
-
 @Entity
-public class Reservation {
+public class Reservations {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,8 +24,6 @@ public class Reservation {
 	private String reservationStatus;
 	
 	@NotNull(message = "This Field can not be null..")
-	@NotBlank(message = "This Field can not be blank..")
-	@NotEmpty(message = "This Field can not be empty..")
 	private String reservationType;
 	
 	private LocalDate reservationDate;
@@ -43,13 +33,9 @@ public class Reservation {
 	private LocalTime reservationTime;
 	
 	@NotNull(message = "This Field can not be null..")
-	@NotBlank(message = "This Field can not be blank..")
-	@NotEmpty(message = "This Field can not be empty..")
 	private String source;
 	
 	@NotNull(message = "This Field can not be null..")
-	@NotBlank(message = "This Field can not be blank..")
-	@NotEmpty(message = "This Field can not be empty..")
 	private String destination;
 	
 	private Integer noOfSeatsBooked;
@@ -59,9 +45,11 @@ public class Reservation {
 	
 
 	@ManyToOne
+	@JoinColumn( name = "bus_id", referencedColumnName = "busId")
 	private Bus bus;
 	
 	@ManyToOne
+	@JoinColumn( name = "user_id", referencedColumnName = "userLoginId")
 	private User user;
 	
 	
@@ -260,7 +248,7 @@ public class Reservation {
 
 
 
-	public Reservation(Integer reservationId, String reservationStatus,
+	public Reservations(Integer reservationId, String reservationStatus,
 			@NotNull(message = "This Field can not be null..") @NotBlank(message = "This Field can not be blank..") @NotEmpty(message = "This Field can not be empty..") String reservationType,
 			LocalDate reservationDate, LocalDate journeyDate, LocalTime reservationTime,
 			@NotNull(message = "This Field can not be null..") @NotBlank(message = "This Field can not be blank..") @NotEmpty(message = "This Field can not be empty..") String source,
@@ -285,7 +273,7 @@ public class Reservation {
 
 
 
-	public Reservation() {
+	public Reservations() {
 		// TODO Auto-generated constructor stub
 	}
 	

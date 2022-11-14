@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 
@@ -23,9 +25,11 @@ public class Feedback {
 	private String comments;
 	private LocalDate feedbackDate;
 	
+	@JsonIgnore
 	@OneToOne
 	private User users;
 	
+	@JsonIgnore
 	@OneToOne
 	private Bus bus;
 	

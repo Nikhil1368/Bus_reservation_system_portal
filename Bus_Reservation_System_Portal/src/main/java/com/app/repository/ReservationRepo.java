@@ -4,11 +4,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import com.app.model.Reservation;
+import com.app.model.Reservations;
 
-public interface ReservationRepo extends JpaRepository<Reservation, Integer> {
+@Repository
+public interface ReservationRepo extends JpaRepository<Reservations, Integer> {
 	
-	public List<Reservation> findByReservationDate(LocalDate date);
+	public List<Reservations> findByReservationDate(LocalDate date);
 
 }
