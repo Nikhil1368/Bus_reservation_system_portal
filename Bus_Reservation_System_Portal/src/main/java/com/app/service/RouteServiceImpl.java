@@ -58,6 +58,7 @@ public class RouteServiceImpl implements RouteService{
 		
 		Optional < Route > optional = routeRepo.findById(route.getRouteId());
 	        if (optional.isPresent()) {
+	        	route2.setRouteId(route.getRouteId());
 	        	route2.setDistance(route.getDistance());
 	        	route2.setRouteFrom(route.getRouteFrom());
 	        	route2.setRouteTo(route.getRouteTo());	

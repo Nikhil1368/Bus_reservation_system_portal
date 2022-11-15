@@ -115,41 +115,24 @@ public class ResevationServiceImp implements ReservationService {
 	@Override
 	public Reservations deleteReservation(Integer reservationId,String key) throws ReservationException,LoginException {
 		// TODO Auto-generated method stub
-//         CurrentUserSession cus = sr.findByUuid(key);
-//		
-//		if(cus == null)
-//		{
-//			throw new LoginException("User not Logged In with this key..");
-//		}
-//		User user=ur.findById(cus.getUserId()).orElseThrow(()-> new LoginException("User NOt Found"));
-//		
-////		java.util.List<Reservation> reList=user.getRervation();
-//		
-//		boolean vb=false;
-//		
-//         for(int i=0;i<reList.size();i++) {
-//        	 if(reList.get(i).getReservationId()==reservationId) {
-//        		 vb=true;
-//        		 
-//        		 Optional<Reservation>opt=rRepo.findById(reservationId);
-//        		 Reservation found=opt.orElseThrow(()-> new ReservationException("Put the valid Id"));
-//        	
-//        		 Bus bus=found.getBus();
-//        		 
-//        		 if(found.getReservationDate().isBefore(LocalDate.now()))throw new ReservationException("Con't Cancel journey!...");
-//        	 
-//        		 bus.setAvailableSeats(bus.getAvailableSeats()+found.getNoOfSeatsBooked());
-//        		 Bus updateBus=bRepo.save(bus);
-//        		 
-//        		 reList.remove(i);
-//        		 rRepo.delete(found);
-//        		 return found;
-        	
-//        	 }
-//         }
-		
-//		if(!vb)throw new LoginException("Reservation Id :"+reservationId +"Incorrect Id");
-	    return null;
+         CurrentUserSession cus = sr.findByUuid(key);	
+		if(cus == null)
+		{
+			throw new LoginException("User not Logged In with this key..");
+		}
+		User user=ur.findById(cus.getUserId()).orElseThrow(()-> new LoginException("User NOt Found"));
+		      		 
+        Optional<Reservations>opt=rRepo.findById(reservationId);
+       Reservations found=opt.orElseThrow(()-> new ReservationException("Put the valid Id")); 
+       
+        Bus bus=found.getBus();	
+        
+       if(found.getReservationDate().isBefore(LocalDate.now()))throw new ReservationException("Con't Cancel journey!...");    	 
+       bus.setAvailableSeats(bus.getAvailableSeats()+found.getNoOfSeatsBooked());
+       Bus updateBus=bRepo.save(bus);
+       rRepo.delete(found);
+       return found;
+
 	}
 
 	@Override

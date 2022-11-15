@@ -3,6 +3,8 @@ package com.app.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +36,7 @@ public class RouteController {
     }
 	
 	@PostMapping("/save/{key}")
-    public ResponseEntity<Route> createRoute(@RequestBody Route route,@PathVariable("key") String key)throws RouteException, LoginException {
+    public ResponseEntity<Route> createRoute(@Valid @RequestBody Route route,@PathVariable("key") String key)throws RouteException, LoginException {
 		
 		Route rou = rService.addRoute(route,key);
 		
@@ -51,7 +53,7 @@ public class RouteController {
 		
 	
 	@PutMapping("/update/{key}")
-    public ResponseEntity<Route> updateRouteById(@RequestBody Route route,@PathVariable("key") String key)throws RouteException, LoginException {
+    public ResponseEntity<Route> updateRouteById(@Valid @RequestBody Route route,@PathVariable("key") String key)throws RouteException, LoginException {
 		
 		return new ResponseEntity<Route>(rService.updateRoute(route,key),HttpStatus.OK);
     }

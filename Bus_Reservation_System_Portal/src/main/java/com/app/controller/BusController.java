@@ -2,6 +2,8 @@ package com.app.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +27,7 @@ public class BusController {
 	private BusService  bService;
 		
 	@PostMapping("/save/{key}")
-    public ResponseEntity<Bus> createBus(@RequestBody Bus bus,@PathVariable("key") String key)throws BusException, LoginException {
+    public ResponseEntity<Bus> createBus(@Valid @RequestBody Bus bus,@PathVariable("key") String key)throws BusException, LoginException {
 		
         return new ResponseEntity<Bus>(bService.addBus(bus,key),HttpStatus.OK);
     } 
@@ -38,7 +40,7 @@ public class BusController {
 		
 	
 	@PutMapping("/update/{key}")
-    public ResponseEntity<Bus> updateBusById(@RequestBody Bus bus,@PathVariable("key") String key)throws BusException, LoginException {
+    public ResponseEntity<Bus> updateBusById(@Valid @RequestBody Bus bus,@PathVariable("key") String key)throws BusException, LoginException {
 		
 		return new ResponseEntity<Bus>(bService.updateBus(bus,key),HttpStatus.OK);
     }

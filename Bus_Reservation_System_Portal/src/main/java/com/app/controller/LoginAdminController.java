@@ -1,5 +1,7 @@
 package com.app.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +26,7 @@ public class LoginAdminController {
 	
 	
 	@PostMapping("/loginadmin")
-	public ResponseEntity<String> loginUser(@RequestBody AdminDTO dto) throws LoginException
+	public ResponseEntity<String> loginUser(@Valid @RequestBody AdminDTO dto) throws LoginException
 	{
 		String str = lasi.loginAdmin(dto);
 		

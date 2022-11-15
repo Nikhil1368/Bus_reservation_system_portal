@@ -2,6 +2,8 @@ package com.app.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +27,7 @@ public class UserController {
 	private UserService usi;
 	
 	@PostMapping("/user")
-	public ResponseEntity<User> registerUser( @RequestBody User user) throws UserException
+	public ResponseEntity<User> registerUser(@Valid @RequestBody User user) throws UserException
 	{
 		User us = usi.addAUser(user);
 		
@@ -33,7 +35,7 @@ public class UserController {
 	}
 	
 	@PutMapping("/user/{key}")
-	public ResponseEntity<User> updateUser(@RequestBody User user,@PathVariable("key") String key) throws UserException
+	public ResponseEntity<User> updateUser(@Valid @RequestBody User user,@PathVariable("key") String key) throws UserException
 	{
 		User us = usi.updateUser(user, key);
 		

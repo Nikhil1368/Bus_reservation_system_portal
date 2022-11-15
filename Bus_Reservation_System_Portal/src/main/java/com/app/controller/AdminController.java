@@ -1,5 +1,7 @@
 package com.app.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +23,7 @@ public class AdminController {
 	
 	
 	@PostMapping("/admin")
-	public ResponseEntity<Admin> registerAdmin(@RequestBody Admin admin) throws AdminException
+	public ResponseEntity<Admin> registerAdmin(@Valid @RequestBody Admin admin) throws AdminException
 	{
 		 Admin adm = asi.addAdmin(admin);
 		 
